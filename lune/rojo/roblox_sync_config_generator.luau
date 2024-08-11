@@ -2,13 +2,17 @@ local process = require("@lune/process")
 local fs = require("@lune/fs")
 local serde = require("@lune/serde")
 
-local package_directory = process.cwd
+local package_directory = process.args[1]
 
 local output = {
 	tree = {},
 }
 
-for _, file in process.args do
+for i, file in process.args do
+	if i == 1 then
+		continue
+	end
+
 	local name = string.gsub(file, ".luau?$", "")
 
 	if name == "init" then
