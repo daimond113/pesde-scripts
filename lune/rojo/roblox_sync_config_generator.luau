@@ -4,6 +4,10 @@ local serde = require("@lune/serde")
 
 local package_directory = process.args[1]
 
+if fs.isFile(package_directory .. "/default.project.json") then
+	return
+end
+
 local output = {
 	tree = {},
 }
