@@ -1,5 +1,5 @@
-local process = require("@lune/process")
 local fs = require("@lune/fs")
+local process = require("@lune/process")
 local serde = require("@lune/serde")
 
 local package_directory = process.args[1]
@@ -20,7 +20,7 @@ for i, file in process.args do
 	local name = string.gsub(file, ".luau?$", "")
 
 	if name == "init" then
-		output["$path"] = file
+		output.tree["$path"] = file
 		continue
 	end
 
@@ -29,8 +29,16 @@ for i, file in process.args do
 	}
 end
 
-if not output["$path"] then
-	output["$className"] = "Folder"
+if not output.tree["$path"] then
+	output.tree["$className"] = "Folder"
+end
+
+if not output.tree["roblox_packages"] then
+	output.tree["roblox_packages"] = {
+		["$path"] = {
+			optional = "roblox_packages",
+		},
+	}
 end
 
 fs.writeFile(package_directory .. "/default.project.json", serde.encode("json", output, true))
