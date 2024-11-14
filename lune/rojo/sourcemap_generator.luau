@@ -10,6 +10,9 @@ if fs.isFile(package_directory .. "/default.project.json") then
 elseif fs.isFile(package_directory .. "/init.luau") then
 	local sourcemap = { filePaths = { "init.luau" } }
 	stdio.write(serde.encode("json", sourcemap, false))
+elseif fs.isFile(package_directory .. "/init.lua" then
+	local sourcemap = { filePaths = { "init.lua" } }
+	stdio.write(serde.encode("json", sourcemap, false))
 else
 	-- use stderr to avoid this being parsed as the output of the sourcemap command
 	stdio.ewrite("no default.project.json found in " .. package_directory)
