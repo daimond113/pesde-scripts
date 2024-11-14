@@ -10,7 +10,7 @@ if fs.isFile(package_directory .. "/default.project.json") then
 elseif fs.isFile(package_directory .. "/init.luau") then
 	local sourcemap = { filePaths = { "init.luau" } }
 	stdio.write(serde.encode("json", sourcemap, false))
-elseif fs.isFile(package_directory .. "/init.lua" then
+elseif fs.isFile(package_directory .. "/init.lua") then
 	local sourcemap = { filePaths = { "init.lua" } }
 	stdio.write(serde.encode("json", sourcemap, false))
 else
