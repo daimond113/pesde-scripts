@@ -16,14 +16,10 @@ local PATH_ACTION_MAP: { [string]: (dir: string) -> number? } = {
     end,
 
     ["init.lua"] = function()
-        return stdio.write(
-            serde.encode("json", { filePaths = { "init.lua" } }, false)
-        )
+        return stdio.write(serde.encode("json", { filePaths = { "init.lua" } }, false))
     end,
     ["init.luau"] = function()
-        return stdio.write(
-            serde.encode("json", { filePaths = { "init.luau" } }, false)
-        )
+        return stdio.write(serde.encode("json", { filePaths = { "init.luau" } }, false))
     end,
 }
 
@@ -32,9 +28,10 @@ local PATH_ACTION_MAP: { [string]: (dir: string) -> number? } = {
 
 --- ## Errors
 --- * The current process lacks permissions to a file
+--- * Failure to spawn `rojo` command
 --- * Any I/O error occurs
 return function(packageDirectory: string?): boolean
-    packageDirectory = packageDirectory or process.cwd 
+    packageDirectory = packageDirectory or process.cwd
 
     -- We go through the action mappings in order of priority and check for the
     -- file predicates, if present, we execute the action and report our status

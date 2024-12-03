@@ -56,15 +56,13 @@ local PLATFORM_SEP = if process.os == "windows" then "\\" else "/"
 --- ## Errors
 --- * The current process lacks permissions to a file
 --- * Any I/O error occurs
-return function(
-    packageDirectory: string?,
-    files: { string },
-    writeToFile: boolean?
-): (boolean, string?)
+return function(packageDirectory: string?, files: { string }, options: {
+    writeToFile: boolean?,
+    force: boolean?,
+}): (boolean, string?)
     packageDirectory = packageDirectory or process.cwd
-    local syncConfigPath =
-        `{packageDirectory}{PLATFORM_SEP}default.project.json`
-    if fs.isFile(syncConfigPath) then
+    local syncConfigPath = `{packageDirectory}{PLATFORM_SEP}default.project.json`
+    if fs.isFile(syncConfigPath) and not options.force then
         return true, nil
     end
 
@@ -102,9 +100,8 @@ return function(
 
     -- Finally, we serialize the config to a JSON string and optionally write it
     -- to the sync config path
-    local serializedConfig =
-        serde.encode("json", { tree = syncConfigTree }, true)
-    if writeToFile then
+    local serializedConfig = serde.encode("json", { tree = syncConfigTree }, true)
+    if options.writeToFile then
         fs.writeFile(syncConfigPath, serializedConfig)
     end
 
