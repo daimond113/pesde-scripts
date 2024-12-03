@@ -1,3 +1,21 @@
 name = "pesde/scripts"
 version = "0.1.0"
 target = "lune"
+
+[graph."itsfrank/frktest"."0.0.2 lune"]
+direct = ["frktest", { name = "itsfrank/frktest", version = "^0.0.2" }, "dev"]
+resolved_ty = "dev"
+
+[graph."itsfrank/frktest"."0.0.2 lune".target]
+environment = "lune"
+lib = "src/_pesde_init.luau"
+
+[graph."itsfrank/frktest"."0.0.2 lune".pkg_ref]
+ref_ty = "pesde"
+name = "itsfrank/frktest"
+version = "0.0.2"
+index_url = "https://github.com/daimond113/pesde-index"
+
+[graph."itsfrank/frktest"."0.0.2 lune".pkg_ref.target]
+environment = "lune"
+lib = "src/_pesde_init.luau"
