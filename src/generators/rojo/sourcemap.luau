@@ -5,6 +5,28 @@ local stdio = require("@lune/stdio")
 
 local PLATFORM_SEP = if process.os == "windows" then "\\" else "/"
 
+-- A mapping of things to do depending on the file present
+local PATH_ACTION_MAP: { [string]: (dir: string) -> number? } = {
+    ["default.project.json"] = function(dir)
+        return process.spawn("rojo", { "sourcemap", dir }, {
+            cwd = process.cwd,
+            env = process.env,
+            stdio = "forward",
+        }).code
+    end,
+
+    ["init.lua"] = function()
+        return stdio.write(
+            serde.encode("json", { filePaths = { "init.lua" } }, false)
+        )
+    end,
+    ["init.luau"] = function()
+        return stdio.write(
+            serde.encode("json", { filePaths = { "init.luau" } }, false)
+        )
+    end,
+}
+
 --- Writes a Rojo sourcemap for the project in the provided directory or the current
 --- working directory to standard output.
 
@@ -12,25 +34,7 @@ local PLATFORM_SEP = if process.os == "windows" then "\\" else "/"
 --- * The current process lacks permissions to a file
 --- * Any I/O error occurs
 return function(packageDirectory: string?): boolean
-    packageDirectory = packageDirectory or process.cwd
-
-    -- A mapping of things to do depending on the file present
-    local PATH_ACTION_MAP: { [string]: (dir: string) -> number? } = {
-        ["default.project.json"] = function(dir)
-            return process.spawn("rojo", { "sourcemap", dir }, {
-                cwd = process.cwd,
-                env = process.env,
-                stdio = "forward",
-            }).code
-        end,
-
-        ["init.lua"] = stdio.write(
-            serde.encode("json", { filePaths = { "init.lua" } }, false)
-        ),
-        ["init.luau"] = stdio.write(
-            serde.encode("json", { filePaths = { "init.luau" } }, false)
-        ),
-    }
+    packageDirectory = packageDirectory or process.cwd 
 
     -- We go through the action mappings in order of priority and check for the
     -- file predicates, if present, we execute the action and report our status
