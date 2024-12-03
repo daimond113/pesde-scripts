@@ -5,7 +5,7 @@ description = "Scripts and other utilities for use with pesde"
 authors = ["dai <contact@daimond113.com> (https://www.daimond113.com/)", "Erica Marigold <hi@devcomp.xyz>"]
 repository = "https://github.com/pesde-pkg/scripts"
 license = "MIT"
-includes = ["src/**/*.luau", "README.md", "LICENSE.md"]
+includes = ["src/**/*.luau", "pesde.toml", "README.md", "LICENSE.md"]
 
 [target]
 environment = "lune"
@@ -13,3 +13,6 @@ lib = "src/init.luau"
 
 [indices]
 default = "https://github.com/daimond113/pesde-index"
+
+[dev_dependencies]
+frktest = { name = "itsfrank/frktest", version = "^0.0.2" }
