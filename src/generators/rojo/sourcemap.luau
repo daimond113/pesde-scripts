@@ -40,7 +40,7 @@ return function(packageDirectory: string?): boolean
     -- file predicates, if present, we execute the action and report our status
     for path, action in PATH_ACTION_MAP do
         if fs.isFile(`{packageDirectory}{PLATFORM_SEP}{path}`) then
-            local status = action()
+            local status = action(packageDirectory)
             return if status ~= nil then status == 0 else true
         end
     end
