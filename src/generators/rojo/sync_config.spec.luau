@@ -24,7 +24,7 @@ return function(test: typeof(frktest.test))
                     local generatedConfig, realConfig =
                         serde.decode("json", config),
                         serde.decode("json", fs.readFile(`{fullPath}/default.project.json`))
-                    
+
                     check.table.contains(realConfig, generatedConfig)
                 end)
             end

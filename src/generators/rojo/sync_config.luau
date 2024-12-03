@@ -56,10 +56,14 @@ local PLATFORM_SEP = if process.os == "windows" then "\\" else "/"
 --- ## Errors
 --- * The current process lacks permissions to a file
 --- * Any I/O error occurs
-return function(packageDirectory: string?, files: { string }, options: {
-    writeToFile: boolean?,
-    force: boolean?,
-}): (boolean, string?)
+return function(
+    packageDirectory: string?,
+    files: { string },
+    options: {
+        writeToFile: boolean?,
+        force: boolean?,
+    }
+): (boolean, string?)
     packageDirectory = packageDirectory or process.cwd
     local syncConfigPath = `{packageDirectory}{PLATFORM_SEP}default.project.json`
     if fs.isFile(syncConfigPath) and not options.force then
