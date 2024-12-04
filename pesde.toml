@@ -7,6 +7,9 @@ repository = "https://github.com/pesde-pkg/scripts"
 license = "MIT"
 includes = ["src/**/*.luau", "pesde.toml", "README.md", "LICENSE.md"]
 
+[meta]
+scripts_root = ".lune"
+
 [target]
 environment = "lune"
 lib = "src/init.luau"
