@@ -49,13 +49,19 @@ for _, test in discoverTests("src") do
 	-- we run all the tests
 
 	-- So, to include only a certain set of test files, you can provide either
-	-- the full path to the test file (with or without the extension) or the test
-	-- file name
-	local withoutExt = string.sub(test, 1, -6)
+	-- the full path of the test file or name of the test file, with or without 
+	-- the `.spec.luau` extension
+	local baseName = string.match(test, "([^/\\]+)$")
+	
+	local withoutExt = string.sub(test, 1, -11)
+	local baseNameWithoutExt = string.match(withoutExt, "([^/\\]+)$")
+
 	local isAllowed = #process.args == 0
-		or table.find(allowedTests, `tests/{test}`)
+		or table.find(allowedTests, test)
 		or table.find(allowedTests, withoutExt)
-		or table.find(allowedTests, `tests/{withoutExt}`)
+		or table.find(allowedTests, baseName)
+		or table.find(allowedTests, baseNameWithoutExt)
+		
 
 	local constructors = {
 		case = frktest.test.case,

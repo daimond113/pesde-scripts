@@ -45,13 +45,13 @@ function ReporterExt.init()
                 if test.failed then "error" else "success",
 
                 -- Await receival of the timestamp and convert the difference to ms
-                (os.clock() - recv_ts()) * 1000
+               (os.clock() - recv_ts()) * 1000
             )
         )
     end)
 
     frktest.test.on_test_skipped(function(test)
-        print(STYLE.report(test.name, "skip"))
+        print(STYLE.report(test.name, "skip", 0))
     end)
 
     Reporter.init()
