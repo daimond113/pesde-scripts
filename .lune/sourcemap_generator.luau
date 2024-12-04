@@ -1,3 +1,5 @@
+--> Generates a Rojo sourcemap for a provided project directory
+
 local function enter(fn: (args: { string }) -> number?): never
 	local process = require("@lune/process")
 	local stdio = require("@lune/stdio")

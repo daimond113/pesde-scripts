@@ -1,3 +1,5 @@
+--> Generates a Rojo sync config from a list of input files 
+
 local function enter(fn: (args: { string }) -> number?): never
     local process = require("@lune/process")
     local stdio = require("@lune/stdio")
