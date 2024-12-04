@@ -3,7 +3,7 @@ local stdio = require("@lune/stdio")
 local frktest = require("../../lune_packages/frktest")
 local Reporter = frktest._reporters.lune_console_reporter
 
-local watch = require("./channel")
+local watch = require("../lib/channel")
 
 local STYLE = table.freeze({
     suite = function(name: string)
