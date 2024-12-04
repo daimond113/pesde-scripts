@@ -10,10 +10,8 @@ local STYLE = table.freeze({
         return `{stdio.style("bold")}{stdio.color("purple")}SUITE{stdio.style("reset")} {name}`
     end,
 
-    report = function(name: string, state: "run" | "success" | "error" | "skip", elapsed: number)
-        local state_color: stdio.Color = if state == "run"
-            then "white"
-            elseif state == "success" then "green"
+    report = function(name: string, state: "success" | "error" | "skip", elapsed: number)
+        local state_color: stdio.Color = if state == "success" then "green"
             elseif state == "error" then "red"
             elseif state == "skip" then "yellow"
             else error("Invalid test state")
