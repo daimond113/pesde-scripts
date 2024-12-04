@@ -7,7 +7,7 @@
 --- task.delay(5, send, "hello, world!")
 --- task.spawn(function()
 ---     local value = recv()
----     print("recevied value:", value)
+---     print("received value:", value)
 --- end)
 --- ```
 type Watch<T> = {
