@@ -52,15 +52,15 @@ local _ERROR_PREFIX = `[{logPrefix("error")}]`
 local function installDeps(): number
     local STDOUT_LINE_PREFIX = `[pesde::{logPrefix("info")}]`
     local PESDE_ERROR_PREFIX = `[pesde::{logPrefix("error")}]`
-    local SPINNER_STATES = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
+    local SPINNER_STATES = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
 
     stdio.write(`{STDOUT_LINE_PREFIX} Installing dependencies with pesde`)
-    
+
     -- Spawn our thread to display the spinner
     local spinnerThread = task.spawn(function()
         -- Hide the cursor
         stdio.write("\x1b[?25l")
-        
+
         -- Display the spinner
         while true do
             for _, state in SPINNER_STATES do
@@ -80,13 +80,13 @@ local function installDeps(): number
         stdio = "default",
     })
 
-    -- If we reach this point, that means mlua resumed the current thread and 
+    -- If we reach this point, that means mlua resumed the current thread and
     -- `process_spawn` returned or errored. We can now close `spinnerThread` and
     -- clean up
 
     task.cancel(spinnerThread)
     stdio.write(
-        -- Clear the current line, move cursor back to its beginning and 
+        -- Clear the current line, move cursor back to its beginning and
         -- show it
         "\x1b[2K\x1b[1G\x1b[?25h"
     )
@@ -122,7 +122,7 @@ for tool, generators in lib.generators do
             "dai <contact@daimond113.com> (https://www.daimond113.com/)",
             "Erica Marigold <hi@devcomp.xyz>",
         },
-        repository = `https://github.com/pesde-pkg/scripts/tree/master/.pesde/{toolChoice}`,
+        repository = "https://github.com/pesde-pkg/scripts",
         license = "MIT",
 
         target = {
