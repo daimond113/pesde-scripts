@@ -189,6 +189,34 @@ result = [{ name = "lukadev_0/result", version = "^1.2.0", index = "https://gith
 environment = "lune"
 bin = "init.luau"
 
+[graph."pesde/stylua"."2.0.1 lune"]
+direct = ["stylua", { name = "pesde/stylua", version = "^2.0.1" }, "dev"]
+resolved_ty = "dev"
+
+[graph."pesde/stylua"."2.0.1 lune".target]
+environment = "lune"
+bin = "init.luau"
+
+[graph."pesde/stylua"."2.0.1 lune".dependencies]
+"lukadev_0/option" = ["1.2.0 lune", "option"]
+"lukadev_0/result" = ["1.2.0 lune", "result"]
+"pesde/toolchainlib" = ["0.1.2 lune", "core"]
+
+[graph."pesde/stylua"."2.0.1 lune".pkg_ref]
+ref_ty = "pesde"
+name = "pesde/stylua"
+version = "2.0.1"
+index_url = "https://github.com/pesde-pkg/index"
+
+[graph."pesde/stylua"."2.0.1 lune".pkg_ref.dependencies]
+core = [{ name = "pesde/toolchainlib", version = "^0.1.0", index = "https://github.com/daimond113/pesde-index", target = "lune" }, "standard"]
+option = [{ name = "lukadev_0/option", version = "^1.2.0", index = "https://github.com/daimond113/pesde-index" }, "standard"]
+result = [{ name = "lukadev_0/result", version = "^1.2.0", index = "https://github.com/daimond113/pesde-index" }, "standard"]
+
+[graph."pesde/stylua"."2.0.1 lune".pkg_ref.target]
+environment = "lune"
+bin = "init.luau"
+
 [graph."pesde/toolchainlib"."0.1.2 lune"]
 resolved_ty = "standard"
 
