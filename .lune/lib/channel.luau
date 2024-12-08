@@ -15,7 +15,7 @@ type Watch<T> = {
     receivers: { thread },
 }
 
---- Crates a new `Watch` channel, returning its send and receive handles.
+--- Creates a new `Watch` channel, returning its send and receive handles.
 local function chan<T>(_phantom: T): ((T) -> (), () -> T?)
     local watch: Watch<T> = {
         value = nil,
