@@ -162,7 +162,7 @@ environment = "luau"
 lib = "lib/init.luau"
 
 [graph."pesde/luau_lsp"."1.36.0 lune"]
-direct = ["luau_lsp", { name = "pesde/luau_lsp", version = "^1.36.0" }, "dev"]
+direct = ["luau-lsp", { name = "pesde/luau_lsp", version = "^1.36.0" }, "dev"]
 resolved_ty = "dev"
 
 [graph."pesde/luau_lsp"."1.36.0 lune".target]
