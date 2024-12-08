@@ -25,10 +25,11 @@ export type SPDXLicense =
 export type DependencySpecifier = ((
     { name: string, version: string, index: string? }
     | { workspace: string, version: string }
-    | { repo: string, rev: string, path: string? }
 ) & {
     target: string?,
-}) | { wally: string, version: string, index: string? }
+})
+    | { wally: string, version: string, index: string? }
+    | { repo: string, rev: string, path: string? }
 
 export type PackageTarget = {
     environment: "roblox" | "roblox_server",
