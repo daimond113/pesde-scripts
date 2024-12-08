@@ -13,7 +13,7 @@ includes = [
   "!src/**/*.spec.luau",
   "pesde.toml",
   "README.md",
-  "LICENSE.md",
+  "LICENSE",
 ]
 
 workspace_members = [".", ".pesde/rojo"]

@@ -40,6 +40,19 @@ end
 ]],
 }
 
+local README_TMPL = [[# `pesde/scripts_%s`
+Common scripts intended for use with %s.
+
+## Included scripts
+### roblox_sync_config_generator
+
+Generates a %s sync config for pesde Roblox packages.
+
+### sourcemap_generator
+
+Prints out a sourcemap for Wally dependencies for type extraction.
+]]
+
 local function logPrefix(type: "error" | "info")
     local statusColor: stdio.Color = if type == "error"
         then "red"
@@ -116,19 +129,28 @@ for tool, generators in lib.generators do
         pathfs.writeDir(toolScriptsDir)
     end
 
+    local capitalisedToolChoice = string.gsub(toolChoice, "^%l", string.upper)
+
     -- Define the manifest for the tool
     local toolManifest: manifest.PesdeManifest = {
         name = `pesde/scripts_{toolChoice}`,
         version = toolMeta.version,
         -- For the description, we capitalize the first letter of the tool name here
         -- since it is a proper noun
-        description = `Scripts for {string.gsub(toolChoice, "^%l", string.upper)}-based Roblox projects.`,
+        description = `Scripts for {capitalisedToolChoice}-based Roblox projects.`,
         authors = {
             "daimond113 <contact@daimond113.com> (https://www.daimond113.com/)",
             "Erica Marigold <hi@devcomp.xyz>",
         },
         repository = "https://github.com/pesde-pkg/scripts",
         license = "MIT",
+        includes = {
+            "roblox_sync_config_generator.luau",
+            "sourcemap_generator.luau",
+            "pesde.toml",
+            "README.md",
+            "LICENSE",
+        },
 
         target = {
             environment = "lune",
@@ -156,6 +178,11 @@ for tool, generators in lib.generators do
     pathfs.writeFile(toolScriptsDir:join("pesde.toml"), serde.encode("toml", toolManifest, true))
     pathfs.writeFile(toolScriptsDir:join("roblox_sync_config_generator.luau"), syncConfigGeneratorScript)
     pathfs.writeFile(toolScriptsDir:join("sourcemap_generator.luau"), sourcemapGeneratorScript)
+    pathfs.writeFile(
+        toolScriptsDir:join("README.md"),
+        string.format(README_TMPL, toolChoice, capitalisedToolChoice, capitalisedToolChoice)
+    )
+    pathfs.copy(pathfs.cwd:join("LICENSE"), toolScriptsDir:join("LICENSE"), true)
 
     stdio.write(
         `{INFO_PREFIX} Generated script project for tool {toolChoice} ({stdio.style("dim")}{string.format(
