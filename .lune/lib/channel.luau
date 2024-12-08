@@ -11,38 +11,38 @@
 --- end)
 --- ```
 type Watch<T> = {
-    value: T?,
-    receivers: { thread },
+	value: T?,
+	receivers: { thread },
 }
 
 --- Creates a new `Watch` channel, returning its send and receive handles.
 local function chan<T>(_phantom: T): ((T) -> (), () -> T?)
-    local watch: Watch<T> = {
-        value = nil,
-        receivers = {},
-    }
+	local watch: Watch<T> = {
+		value = nil,
+		receivers = {},
+	}
 
-    local function send(value: T)
-        watch.value = value
+	local function send(value: T)
+		watch.value = value
 
-        for _, receiver in watch.receivers do
-            coroutine.resume(receiver, value)
-        end
-    end
+		for _, receiver in watch.receivers do
+			coroutine.resume(receiver, value)
+		end
+	end
 
-    local function recv(): T
-        local value = watch.value
-        watch.value = nil
+	local function recv(): T
+		local value = watch.value
+		watch.value = nil
 
-        if value == nil then
-            table.insert(watch.receivers, coroutine.running())
-            return coroutine.yield()
-        end
+		if value == nil then
+			table.insert(watch.receivers, coroutine.running())
+			return coroutine.yield()
+		end
 
-        return value :: T
-    end
+		return value :: T
+	end
 
-    return send, recv
+	return send, recv
 end
 
 return chan
