@@ -5,7 +5,7 @@ local process = require("@lune/process")
 local CommandBuilder = require("./lib/exec")
 
 process.exit(
-    CommandBuilder.new("~/.rokit/bin/luau-lsp")
+    CommandBuilder.new("luau_lsp")
         :withArg("analyze")
         :withArgs({ "--settings", ".vscode/settings.json" })
         :withArgs({ "--ignore", "'**/.pesde/**'" })
