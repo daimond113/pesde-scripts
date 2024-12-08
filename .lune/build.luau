@@ -27,14 +27,17 @@ local SCRIPTS = {
 local args = table.clone(process.args)
 local ok, _ =
 require("./lune_packages/core").generators.%s.syncConfig(table.remove(args, 1), args, { writeToFile = true })
-
-process.exit(tonumber(ok))]],
+if not ok then 
+	return process.exit(1)
+end]],
 
     sourcemapGenerator = [[local process = require("@lune/process")
 
-return process.exit(
-	tonumber(require("./lune_packages/core").generators.%s.sourcemap(process.args[1]))
-)]],
+local ok = require("./lune_packages/core").generators.%s.sourcemap(process.args[1])
+if not ok then
+	return process.exit(1)
+end
+]],
 }
 
 local function logPrefix(type: "error" | "info")
