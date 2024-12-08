@@ -1,4 +1,4 @@
---- An MPSC synchronization primitive powered by Lua upvalues which retains only 
+--- An MPSC synchronization primitive powered by Lua upvalues which retains only
 --- one value at a time.
 
 --- ## Usage
@@ -33,12 +33,12 @@ local function chan<T>(_phantom: T): ((T) -> (), () -> T?)
     local function recv(): T
         local value = watch.value
         watch.value = nil
-        
+
         if value == nil then
             table.insert(watch.receivers, coroutine.running())
             return coroutine.yield()
         end
-        
+
         return value :: T
     end
 

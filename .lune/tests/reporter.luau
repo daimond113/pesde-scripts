@@ -11,7 +11,8 @@ local STYLE = table.freeze({
     end,
 
     report = function(name: string, state: "success" | "error" | "skip", elapsed: number)
-        local state_color: stdio.Color = if state == "success" then "green"
+        local state_color: stdio.Color = if state == "success"
+            then "green"
             elseif state == "error" then "red"
             elseif state == "skip" then "yellow"
             else error("Invalid test state")
@@ -31,23 +32,21 @@ function ReporterExt.init()
         stdio.write("\n")
     end)
 
-    local send_ts, recv_ts = watch((nil :: any) :: number) 
-    
+    local send_ts, recv_ts = watch((nil :: any) :: number)
+
     frktest.test.on_test_enter(function()
         -- Send over some high precision timestamp when the test starts
-        return send_ts(os.clock())    
+        return send_ts(os.clock())
     end)
 
     frktest.test.on_test_leave(function(test)
-        print(
-            STYLE.report(
-                test.name,
-                if test.failed then "error" else "success",
+        print(STYLE.report(
+            test.name,
+            if test.failed then "error" else "success",
 
-                -- Await receival of the timestamp and convert the difference to ms
-               (os.clock() - recv_ts()) * 1000
-            )
-        )
+            -- Await receival of the timestamp and convert the difference to ms
+            (os.clock() - recv_ts()) * 1000
+        ))
     end)
 
     frktest.test.on_test_skipped(function(test)
