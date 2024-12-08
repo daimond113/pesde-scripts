@@ -43,18 +43,18 @@ local function logPrefix(type: "error" | "info")
         elseif type == "info" then "green"
         else error(`Invalid type: {type}`)
 
-    return `pesde::{stdio.style("bold")}{stdio.color(statusColor)}{type}{stdio.color("reset")}`
+    return `main::{stdio.style("bold")}{stdio.color(statusColor)}{type}{stdio.color("reset")}`
 end
 
-local INFO_PREFIX = `[{logPrefix("info")}]`
+local INFO_PREFIX = `[ {logPrefix("info")}]`
 local _ERROR_PREFIX = `[{logPrefix("error")}]`
 
 local function installDeps(): number
-    local STDOUT_LINE_PREFIX = `[pesde::{logPrefix("info")}]`
-    local PESDE_ERROR_PREFIX = `[pesde::{logPrefix("error")}]`
+    local PESDE_INFO_PREFIX = string.gsub(`[{logPrefix("info")}]`, "main", "pesde")
+    local PESDE_ERROR_PREFIX = string.gsub(`[{logPrefix("error")}]`, "main", "pesde")
     local SPINNER_STATES = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
 
-    stdio.write(`{STDOUT_LINE_PREFIX} Installing dependencies with pesde`)
+    stdio.write(`{PESDE_INFO_PREFIX} Installing dependencies with pesde`)
 
     -- Spawn our thread to display the spinner
     local spinnerThread = task.spawn(function()
@@ -96,7 +96,7 @@ local function installDeps(): number
         stdio.ewrite(child.stderr)
     end
 
-    stdio.write(`{STDOUT_LINE_PREFIX} Installed dependencies with pesde successfully\n`)
+    stdio.write(`{PESDE_INFO_PREFIX} Installed dependencies with pesde successfully\n`)
 
     return child.code
 end
@@ -119,7 +119,7 @@ for tool, generators in lib.generators do
         version = toolMeta.version,
         description = `Scripts for {toolChoice}-based Roblox projects`,
         authors = {
-            "dai <contact@daimond113.com> (https://www.daimond113.com/)",
+            "daimond113 <contact@daimond113.com> (https://www.daimond113.com/)",
             "Erica Marigold <hi@devcomp.xyz>",
         },
         repository = "https://github.com/pesde-pkg/scripts",
@@ -153,10 +153,10 @@ for tool, generators in lib.generators do
     pathfs.writeFile(toolScriptsDir:join("sourcemap_generator.luau"), sourcemapGeneratorScript)
 
     stdio.write(
-        `{INFO_PREFIX} Generated script project for tool {toolChoice} [{stdio.style("dim")}{string.format(
-            "%.2fs",
-            os.clock() - startTime
-        )}{stdio.style("reset")}]\n`
+        `{INFO_PREFIX} Generated script project for tool {toolChoice} ({stdio.style("dim")}{string.format(
+            "%.2fms",
+            (os.clock() - startTime) * 1000
+        )}{stdio.style("reset")})\n`
     )
 
     -- Now we install the dependencies for the newly created projects
