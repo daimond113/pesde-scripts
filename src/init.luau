@@ -5,4 +5,4 @@ return {
             syncConfig = require("./generators/rojo/sync_config"),
         },
     },
-}
+} 

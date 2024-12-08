@@ -1,21 +1,35 @@
-name = "pesde/scripts"
+name = "pesde/scripts_core"
 version = "0.1.0"
 pesde_version = "0.5.0-rc.14"
 description = "Scripts and other utilities for use with pesde"
-authors = ["dai <contact@daimond113.com> (https://www.daimond113.com/)", "Erica Marigold <hi@devcomp.xyz>"]
+authors = [
+  "dai <contact@daimond113.com> (https://www.daimond113.com/)",
+  "Erica Marigold <hi@devcomp.xyz>",
+]
 repository = "https://github.com/pesde-pkg/scripts"
 license = "MIT"
-includes = ["src/**/*.luau", "pesde.toml", "README.md", "LICENSE.md"]
+includes = [
+  "src/**/*.luau",
+  "!src/**/*.spec.luau",
+  ".pesde",
+  "pesde.toml",
+  "README.md",
+  "LICENSE.md",
+]
 
-[meta]
-scripts_root = ".lune"
+workspace_members = [".", ".pesde/rojo"]
+
+[meta.scripts.rojo]
+version = "0.1.0"
+tool_dependencies = { rojo = { name = "pesde/rojo", version = "^7.4.4" } }
 
 [target]
 environment = "lune"
 lib = "src/init.luau"
 
-[indices]
-default = "https://github.com/daimond113/pesde-index"
-
 [dev_dependencies]
 frktest = { name = "itsfrank/frktest", version = "^0.0.2" }
+pathfs = { name = "jiwonz/pathfs", version = "^0.1.0" }
+
+[indices]
+default = "https://github.com/pesde-pkg/index"
