@@ -1,5 +1,5 @@
 name = "pesde/scripts_core"
-version = "0.1.0"
+version = "0.0.1"
 pesde_version = "0.5.0-rc.14"
 description = "Scripts and other utilities for use with pesde"
 authors = [
