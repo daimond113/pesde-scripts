@@ -117,7 +117,9 @@ for tool, generators in lib.generators do
     local toolManifest: manifest.PesdeManifest = {
         name = `pesde/scripts_{toolChoice}`,
         version = toolMeta.version,
-        description = `Scripts for {toolChoice}-based Roblox projects`,
+	-- For the description, we capitalize the first letter of the tool name here
+	-- since it is a proper noun
+        description = `Scripts for {string.gsub(toolChoice, "^%l", string.upper)}-based Roblox projects.`,
         authors = {
             "daimond113 <contact@daimond113.com> (https://www.daimond113.com/)",
             "Erica Marigold <hi@devcomp.xyz>",
