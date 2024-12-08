@@ -1,12 +1,9 @@
 name = "pesde/scripts_core"
-version = "0.1.0"
+version = "0.0.1"
 target = "lune"
 
 [workspace."pesde/scripts_core"]
 lune = ""
-
-[workspace."pesde/scripts_rojo"]
-lune = ".pesde/rojo"
 
 [graph."itsfrank/frktest"."0.0.2 lune"]
 direct = ["frktest", { name = "itsfrank/frktest", version = "^0.0.2" }, "dev"]
