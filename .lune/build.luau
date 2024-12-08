@@ -117,8 +117,8 @@ for tool, generators in lib.generators do
     local toolManifest: manifest.PesdeManifest = {
         name = `pesde/scripts_{toolChoice}`,
         version = toolMeta.version,
-	-- For the description, we capitalize the first letter of the tool name here
-	-- since it is a proper noun
+        -- For the description, we capitalize the first letter of the tool name here
+        -- since it is a proper noun
         description = `Scripts for {string.gsub(toolChoice, "^%l", string.upper)}-based Roblox projects.`,
         authors = {
             "daimond113 <contact@daimond113.com> (https://www.daimond113.com/)",
@@ -160,7 +160,7 @@ for tool, generators in lib.generators do
             (os.clock() - startTime) * 1000
         )}{stdio.style("reset")})\n`
     )
-
-    -- Now we install the dependencies for the newly created projects
-    process.exit(installDeps())
 end
+
+-- Now we install the dependencies for the newly created projects
+process.exit(installDeps())
