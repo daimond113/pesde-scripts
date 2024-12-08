@@ -1,2 +1,7 @@
+# Pesde packages
 *_packages/
 pesde.lock
+
+# Generated scripts
+.pesde/*
+!.pesde/.gitkeep
