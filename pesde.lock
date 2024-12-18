@@ -161,6 +161,34 @@ index_url = "https://github.com/daimond113/pesde-index"
 environment = "luau"
 lib = "lib/init.luau"
 
+[graph."pesde/argon"."2.0.21 lune"]
+direct = ["argon", { name = "pesde/argon", version = "^2.0.21" }, "dev"]
+resolved_ty = "dev"
+
+[graph."pesde/argon"."2.0.21 lune".target]
+environment = "lune"
+bin = "init.luau"
+
+[graph."pesde/argon"."2.0.21 lune".dependencies]
+"lukadev_0/option" = ["1.2.0 lune", "option"]
+"lukadev_0/result" = ["1.2.0 lune", "result"]
+"pesde/toolchainlib" = ["0.1.2 lune", "core"]
+
+[graph."pesde/argon"."2.0.21 lune".pkg_ref]
+ref_ty = "pesde"
+name = "pesde/argon"
+version = "2.0.21"
+index_url = "https://github.com/pesde-pkg/index"
+
+[graph."pesde/argon"."2.0.21 lune".pkg_ref.dependencies]
+core = [{ name = "pesde/toolchainlib", version = "^0.1.2", index = "https://github.com/daimond113/pesde-index", target = "lune" }, "standard"]
+option = [{ name = "lukadev_0/option", version = "^1.2.0", index = "https://github.com/daimond113/pesde-index" }, "standard"]
+result = [{ name = "lukadev_0/result", version = "^1.2.0", index = "https://github.com/daimond113/pesde-index" }, "standard"]
+
+[graph."pesde/argon"."2.0.21 lune".pkg_ref.target]
+environment = "lune"
+bin = "init.luau"
+
 [graph."pesde/luau_lsp"."1.36.0 lune"]
 direct = ["luau-lsp", { name = "pesde/luau_lsp", version = "^1.36.0" }, "dev"]
 resolved_ty = "dev"
@@ -186,6 +214,34 @@ option = [{ name = "lukadev_0/option", version = "^1.2.0", index = "https://gith
 result = [{ name = "lukadev_0/result", version = "^1.2.0", index = "https://github.com/daimond113/pesde-index" }, "standard"]
 
 [graph."pesde/luau_lsp"."1.36.0 lune".pkg_ref.target]
+environment = "lune"
+bin = "init.luau"
+
+[graph."pesde/rojo"."7.4.4 lune"]
+direct = ["rojo", { name = "pesde/rojo", version = "^7.4.4" }, "dev"]
+resolved_ty = "dev"
+
+[graph."pesde/rojo"."7.4.4 lune".target]
+environment = "lune"
+bin = "init.luau"
+
+[graph."pesde/rojo"."7.4.4 lune".dependencies]
+"lukadev_0/option" = ["1.2.0 lune", "option"]
+"lukadev_0/result" = ["1.2.0 lune", "result"]
+"pesde/toolchainlib" = ["0.1.2 lune", "core"]
+
+[graph."pesde/rojo"."7.4.4 lune".pkg_ref]
+ref_ty = "pesde"
+name = "pesde/rojo"
+version = "7.4.4"
+index_url = "https://github.com/pesde-pkg/index"
+
+[graph."pesde/rojo"."7.4.4 lune".pkg_ref.dependencies]
+core = [{ name = "pesde/toolchainlib", version = "^0.1.1", index = "https://github.com/daimond113/pesde-index", target = "lune" }, "standard"]
+option = [{ name = "lukadev_0/option", version = "^1.2.0", index = "https://github.com/daimond113/pesde-index" }, "standard"]
+result = [{ name = "lukadev_0/result", version = "^1.2.0", index = "https://github.com/daimond113/pesde-index" }, "standard"]
+
+[graph."pesde/rojo"."7.4.4 lune".pkg_ref.target]
 environment = "lune"
 bin = "init.luau"
 

@@ -1,3 +1,6 @@
 [submodule "test-files/rojo"]
 	path = test-files/rojo
 	url = https://github.com/rojo-rbx/rojo.git
+[submodule "test-files/argon"]
+	path = test-files/argon
+	url = https://github.com/argon-rbx/examples.git

@@ -21,27 +21,32 @@ local require = require :: (
 	))
 ) -> ()
 
-local function discoverTests(dir: string)
+
+local function discoverTests(dir: string): { string }
 	local tests = {}
-	for _, file in fs.readDir(dir) do
-		local fullPath = `{dir}/{file}`
+
+	local entries = fs.readDir(dir)
+	for _, entry in entries do
+		local path = `{dir}/{entry}`
 
 		-- Look for files ending in `.spec.luau` as tests
-		if fs.isFile(fullPath) and string.sub(file, -10) == ".spec.luau" then
-			table.insert(tests, fullPath)
+		if fs.isFile(path) and string.match(entry, "%.spec%.luau$") then
+			table.insert(tests, path)
+			continue
 		end
 
 		-- Recurse for directories
-		if fs.isDir(fullPath) then
-			local moreTests = discoverTests(fullPath)
-
-			-- Why are the indices starting at 0???? What????
-			table.move(moreTests, 0, #moreTests, #tests, tests)
+		if fs.isDir(path) then
+			local dirResults = discoverTests(path)
+			table.move(dirResults, 1, #dirResults, #tests + 1, tests)
+			continue
 		end
 	end
 
 	return tests
 end
+
+print(discoverTests("src"))
 
 local allowedTests = process.args
 for _, test in discoverTests("src") do
