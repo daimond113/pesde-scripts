@@ -46,8 +46,6 @@ local function discoverTests(dir: string): { string }
 	return tests
 end
 
-print(discoverTests("src"))
-
 local allowedTests = process.args
 for _, test in discoverTests("src") do
 	-- If we are given any arguments, we only run those tests, otherwise,
