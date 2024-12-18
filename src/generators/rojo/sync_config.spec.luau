@@ -13,13 +13,13 @@ local TEST_PROJECTS_DIRS = {
 
 return function(test: typeof(frktest.test))
 	test.suite("Generates Rojo valid sync configs", function()
-		for _, dir in TEST_PROJECTS_DIRS do
-			for _, file in fs.readDir(dir) do
-				local fullPath = `{dir}/{file}`
-				test.case(`{file}`, function()
+		for _, entry in TEST_PROJECTS_DIRS do
+			for _, subEntry in fs.readDir(entry) do
+				local path = `{entry}/{subEntry}`
+				test.case(`{subEntry}`, function()
 					local ok, config = syncConfig(
-						fullPath,
-						fs.readDir(fullPath),
+						path,
+						fs.readDir(path),
 						{ writeToFile = false, force = true }
 					)
 					check.is_true(ok)
@@ -29,7 +29,7 @@ return function(test: typeof(frktest.test))
 						serde.decode("json", config),
 						serde.decode(
 							"json",
-							fs.readFile(`{fullPath}/default.project.json`)
+							fs.readFile(`{path}/default.project.json`)
 						)
 
 					check.table.contains(realConfig, generatedConfig)

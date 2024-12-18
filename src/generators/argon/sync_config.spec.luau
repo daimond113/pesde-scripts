@@ -10,16 +10,16 @@ local TEST_PROJECTS_DIR = "./test-files/argon"
 
 return function(test: typeof(frktest.test))
 	test.suite("Generates valid Argon sync configs", function()
-		for _, dir in fs.readDir(TEST_PROJECTS_DIR) do
-			local fullPath = `{TEST_PROJECTS_DIR}/{dir}`
-			if not fs.isDir(fullPath) or dir == ".git" then
+		for _, entry in fs.readDir(TEST_PROJECTS_DIR) do
+			local path = `{TEST_PROJECTS_DIR}/{entry}`
+			if not fs.isDir(path) or entry == ".git" then
 				continue
 			end
 
-			test.case(`{dir}`, function()
+			test.case(`{entry}`, function()
 				local ok, config = syncConfig(
-					fullPath,
-					fs.readDir(fullPath),
+					path,
+					fs.readDir(path),
 					{ writeToFile = false, force = true }
 				)
 				check.is_true(ok)
@@ -29,7 +29,7 @@ return function(test: typeof(frktest.test))
 					serde.decode("json", config),
 					serde.decode(
 						"json",
-						fs.readFile(`{fullPath}/default.project.json`)
+						fs.readFile(`{path}/default.project.json`)
 					)
 
 				check.table.contains(realConfig, generatedConfig)

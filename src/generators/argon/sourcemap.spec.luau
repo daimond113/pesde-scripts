@@ -61,20 +61,20 @@ return function(test: typeof(frktest.test))
 	test.suite(
 		"Generates Argon sourcemaps for test projects successfully",
 		function()
-			for _, file in fs.readDir(TEST_PROJECTS_DIR) do
-				local testProject = `{TEST_PROJECTS_DIR}/{file}`
-				if not fs.isDir(testProject) or file == ".git" then
+			for _, entry in fs.readDir(TEST_PROJECTS_DIR) do
+				local path = `{TEST_PROJECTS_DIR}/{entry}`
+				if not fs.isDir(path) or entry == ".git" then
 					-- Skip files that are not project directories
 					continue
 				end
 				
-				test.case(file, function()
+				test.case(entry, function()
 					-- If a file starts with `bad_` but not `bad_meta_`, we should expect a failure
 					-- Also, sorry about this shitty regex, regex-rs does not support look-around :(
 					local isBadMeta = regex.new(
 						"^bad_[^m]|^bad_m[^e]|^bad_me[^t]|^bad_met[^a]"
 					)
-					local expect = if isBadMeta:isMatch(file)
+					local expect = if isBadMeta:isMatch(entry)
 						then check.should_error
 						else check.should_not_error
 
@@ -91,7 +91,7 @@ return function(test: typeof(frktest.test))
 							}
 						)()
 
-						return check.is_true(sourcemap(testProject))
+						return check.is_true(sourcemap(path))
 					end)
 				end)
 			end
