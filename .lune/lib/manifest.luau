@@ -41,12 +41,11 @@ export type DependencySpecifier = (({
 export type PackageTarget = {
 	environment: "roblox" | "roblox_server",
 	lib: string,
-} | {
+} | ({
 	environment: "luau" | "lune",
-	lib: string,
-	bin: string,
-	scripts: { [string]: string },
-}
+} & (
+	{ scripts: { [string]: string } } | { lib: string } | { bin: string }
+))
 
 export type PesdeManifest<T = {}> = {
 	name: string,

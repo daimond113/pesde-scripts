@@ -10,17 +10,8 @@ local manifest = require("./lib/manifest")
 local pathfs = require("../lune_packages/pathfs")
 
 type ToolChoice = "rojo"
-type ManifestExt = {
-	scripts: {
-		[ToolChoice]: {
-			version: string,
-			tool_dependencies: { { [string]: manifest.DependencySpecifier } },
-		},
-	},
-}
-
 local SCRIPTS_DIR = pathfs.getAbsolutePathOf(pathfs.Path.from(".pesde"))
-local MANIFEST = manifest(nil, (nil :: any) :: { meta: ManifestExt })
+local MANIFEST = manifest(nil, (nil :: any) :: { meta: manifest.PesdeManifest })
 local SCRIPTS = {
 	syncConfigGenerator = [[local process = require("@lune/process")
 
@@ -90,6 +81,9 @@ local function installDeps(): number
 					-- Moves the cursor back 1 spot and clears everything after
 					"\x1b[2D\x1b[0K"
 				)
+
+				-- Wait 10ms between each spinner state 
+				task.wait(0.1)
 			end
 		end
 	end)
@@ -97,7 +91,7 @@ local function installDeps(): number
 	-- `process_spawn` is an async rust function, so tokio spawns a hardware
 	-- thread and mlua will yield the current thread, allowing for `spinnerThread`
 	-- to continue executing
-	local child = process.spawn("pesde", { "install" }, {
+	local child = process.spawn("/home/usr/.pesde/bin/pesde", { "install" }, {
 		stdio = "default",
 	})
 
