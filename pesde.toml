@@ -22,6 +22,10 @@ workspace_members = [".", ".pesde/rojo"]
 version = "0.1.0"
 tool_dependencies = { rojo = { name = "pesde/rojo", version = "^7.4.4" } }
 
+[meta.scripts.argon]
+version = "0.1.0"
+tool_dependencies = { argon = { name = "pesde/argon", version = "^2.0.21" } }
+
 [target]
 environment = "lune"
 lib = "src/init.luau"
